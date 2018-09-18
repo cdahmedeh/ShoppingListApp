@@ -1,0 +1,13 @@
+<h2>Shopping List</h2>
+
+<ul>
+  <li *ngFor='let item of items'>
+    <span>{{item.name}}</span> 
+  </li>
+</ul>
+
+<input #newItem
+  (keyup.enter)="addItem(newItem.value)"
+  (blur)="addItem(newItem.value); newItem.value='test' ">
+
+<button (click)="addItem(newItem.value)">Add</button>
