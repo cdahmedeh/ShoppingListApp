@@ -5,9 +5,9 @@
 
 <ul>
   <li *ngFor='let item of items'>
-    <span>{{item.name}}</span>
-    <button>Cross Out</button>
-    <button>Remove</button>
+    <span [class.checked]="item.checked">{{item.name}}</span>
+    <button (click)=crossOut(item.name)>Cross Out</button>
+    <button (click)=remove(item.name)>Remove</button>
   </li>
 </ul>
 

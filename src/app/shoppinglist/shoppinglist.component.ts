@@ -34,4 +34,13 @@ export class ShoppinglistComponent implements OnInit {
     }
   }
 
+  crossOut(name: string) {
+    let item = this.items.find(x => x.name == name);
+    item.check();
+  }
+
+  remove(name: string) {
+    this.items = this.items.filter(x => x.name != name);
+  }
+
 }

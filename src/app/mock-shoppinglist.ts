@@ -1,7 +1,7 @@
 import { Item } from './item';
 
 export const ITEMS: Item[] = [
-    {name: 'bacon'},
-    {name: 'milk'},
-    {name: 'cheese'}
+    new Item('milk'),
+    new Item('salt'),
+    new Item('baking soda')
 ]
