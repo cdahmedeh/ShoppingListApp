@@ -1,8 +1,13 @@
 <h2>Shopping List</h2>
 
+<button (click)="switchGroceryList(1)">Grocery List 1</button>
+<button (click)="switchGroceryList(2)">Grocery List 2</button>
+
 <ul>
   <li *ngFor='let item of items'>
-    <span>{{item.name}}</span> 
+    <span>{{item.name}}</span>
+    <button>Cross Out</button>
+    <button>Remove</button>
   </li>
 </ul>
 

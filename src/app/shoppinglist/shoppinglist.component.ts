@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../item';
 import { ITEMS } from '../mock-shoppinglist';
+import { ITEMS2 } from '../mock-shoppinglist.2';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -9,6 +10,8 @@ import { ITEMS } from '../mock-shoppinglist';
 })
 
 export class ShoppinglistComponent implements OnInit {
+  grocery_lists = [1, 2];
+
   items = ITEMS;
 
   constructor() { }
@@ -20,6 +23,14 @@ export class ShoppinglistComponent implements OnInit {
     if (newItem) {
       let item = new Item(newItem);
       this.items.push(item);
+    }
+  }
+
+  switchGroceryList(id: number) {
+    if (id == 1) {
+      this.items = ITEMS;
+    } else if (id == 2) {
+      this.items = ITEMS2;
     }
   }
 
