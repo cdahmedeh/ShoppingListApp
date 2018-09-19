@@ -69,6 +69,11 @@ You can then enter the directory of the project folder. The project can be run w
 
 The browser will be automatically be opened to the Angular App on (http://localhost:4200)[http://localhost:4200]
 
+## Project Structure
 
+src/app/models.ts => Domain models
+src/app/shopliftr.service.ts => HTTP access to Shoplifr API
+src/app/shopliftr.dto.ts => Models of JSON responses from API
+src/app/mapper.ts => Converts JSON Models into Domain models
 
 
