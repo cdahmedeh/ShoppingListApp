@@ -26,6 +26,8 @@ User selection should not be done via the body of the endpoint. Instead it could
 
 Finally, in order to do batch shopping list operations, I'd recommend a look into the JSON Patch RFC 6092. This would minimize the amount of endpoint calls and enhance responsiveness of the app.
 
+The error reporting on the API is poor often just returning 400 or 500 series errors. I recommend at least showing the Java Exception that caused the failure.
+
 ### Performance optimization
 
 I have done a single performance optimization to improve the responsiveness of the app. The model is updated immedeatly even before the server request is made. This gives the impressions that things are happening locally while in the background network requests are being made to persist the changes.
