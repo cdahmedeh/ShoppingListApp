@@ -75,5 +75,7 @@ src/app/models.ts => Domain models
 src/app/shopliftr.service.ts => HTTP access to Shoplifr API
 src/app/shopliftr.dto.ts => Models of JSON responses from API
 src/app/mapper.ts => Converts JSON Models into Domain models
+src/app/api-consts.ts => API related constants
+src/app/shoppinglist => Shopping Page Component
 
 
