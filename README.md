@@ -1,22 +1,49 @@
 # Shopping List App Exercise
 
-## My Experience doing this Exercise
+## Notes
 
-I am primarly a backend developer with experience making web apps using REST APIs and Server-Side Rendering. Though I have experience with HTML, CSS and JavaScript, I've only dabbled in JavaScript frameworks like Angular and React. This was my first true foray into these types of frameworks.
+I've added some notes about this exercise. Instructions on how to run or access this project are found below.
 
-Unlike React, it seems that Angular is better organized and more intuitive. The framework ressembles a well architectured MVC design. My favourite part was the use of TypeScript which allows typing in JavaScript, a breath of fresh air for someone who works mainly with strongly typed languages.
+### My Experience doing this Exercise
 
-I spend about a day learning React and then designed the application following the basic requirements of the project. I had to make some sacrifices due to the short amount of time I had to do this work.
+This was a very interesting and enjoyable challenge as I am primarly a backend developer. I have written web apps before but using server-side rendering such as RoR, Java EE JSP and JSF. I've also worked with Desktop applications in Swing, SWT and JavaFX, so I believe that I have a good grip on asynchronous event systems and improving responsiveness.
 
-Three major software engineering practises were ignored during this exercise: security, testing and performance. 
+Though I've dabbled with AngularJS and React before, Angular 2+ seems to be a very well architectured web framework with a very clear Controller/View model. It was easier to understand and learn than many other web frameworks. I enjoyed the use of TypeScript as it allowed typing which is a breath of fresh air for someone who is used to Strongly-Typed languages.
 
-The application sends the password over plain-text HTTP, rather than HTTPS. Perhaps a web server like nginx could take care of this caveat.
+IDEs such as Visual Code we're not powerful enough and missed many of the auto-completion and refactoring features found in Eclipse and IntelliJ. This is expected due to the nature of the programming and markup languages of dynamic nature.
 
-No unit tests were written for this exercise due to lack of time. However, testing is very important for web apps as their complexity can easily lead to regressions when doing bug fixes or new features.
+Most of the learning was done through the official Angular documentation which was very thourough and useful. I did encouter some obscure issues and sometimes StackOverflow threads were useful.
 
-API calls are done as soon as the user performs the actions which means that API requests stack up quickly and could affect responsiveness. I should have implemented a syncing system that detects when the user is inactive and then send the API calls in a batch. For the Shopliftr API, I would recommend the JSON Patch RFC 6092 which would allow one API call for multiple operations.
+There are some software engineering practises that I've ignored due to time limitations such as security, unit testing and validation.
 
-I learned alot about modern web applications though I can't say that I'm an expert full-stack developer yet. This has definately taken me out of my comfort zone and I thouroughly enjoyed the challenge. Most of my learning was thanks to the official Angular Documentation which was indispensable to understand how certain components work together.
+The application cannot run offline or handle network problems. Some applications like Todoist handle this by using in browser storage.
+
+### Recommendations for the API
+
+The documentation for the Shopping List API does not include example requests or responses like some of the other endpoints. I had to use Postman to manually find out how the endpoints are supposed to used and their responses so I can create DTOs for them.
+
+User selection should not be done via the body of the endpoint. Instead it could be part of the header, ideally a JWT encrypted token. This would allow the use of PUT, DELETE, etc HTTP methods instead of using POST for everything and follow RESTful conventions more closely.
+
+Finally, in order to do batch shopping list operations, I'd recommend a look into the JSON Patch RFC 6092. This would minimize the amount of endpoint calls and enhance responsiveness of the app.
+
+### Performance optimization
+
+I have done a single performance optimization to improve the responsiveness of the app. The model is updated immedeatly even before the server request is made. This gives the impressions that things are happening locally while in the background network requests are being made to persist the changes.
+
+### Application Features
+
+* Built with Angular 6
+* User can manually enter ZIP code to identify geographical position
+
+* Add one item to the grocery list at a time.
+* Items can checked/crossed-out from the list.
+* Items can removed/deleted from the list.
+* Under each item, relevant deals are presented to the user.
+
+* Multiple grocery lists can be managed.
+* Grocery lists can be added or deleted.
+
+* Uses Shopliftr API to store and retrieve data for persistance.
 
 ## Hosted Version
 
@@ -42,17 +69,6 @@ You can then enter the directory of the project folder. The project can be run w
 
 The browser will be automatically be opened to the Angular App on (http://localhost:4200)[http://localhost:4200]
 
-## Application Features
 
-* Built with Angular 6
-* User can manually enter ZIP code to identify geographical position
 
-* Add one item to the grocery list at a time.
-* Items can checked/crossed-out from the list.
-* Items can removed/deleted from the list.
-* Under each item, relevant deals are presented to the user.
 
-* Multiple grocery lists can be managed in the side bar.
-* Grocery lists can be added or deleted.
-
-* Uses Shopliftr API to store and retrieve data for persistance.
