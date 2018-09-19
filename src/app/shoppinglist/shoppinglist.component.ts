@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ShopliftrService } from '../shopliftr.service';
+import { ShopliftrMapper } from '../shopliftr.mapper';
 
-import { ShoppingLists } from '../shoppinglists';
-
-import { Item } from '../item';
-import { ITEMS } from '../mock-shoppinglist';
-import { ITEMS2 } from '../mock-shoppinglist.2';
-import { ShoppingList } from '../shoppinglist';
+import { ShoppingLists, ShoppingList, Item } from '../models';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -18,9 +14,7 @@ import { ShoppingList } from '../shoppinglist';
 export class ShoppinglistComponent implements OnInit {
   lists: ShoppingLists = new ShoppingLists();
 
-  grocery_lists = [1, 2];
-
-  items = ITEMS;
+  items = [];
 
   constructor(public service: ShopliftrService) { }
 
@@ -31,16 +25,10 @@ export class ShoppinglistComponent implements OnInit {
   populateAllShoppingLists() {
     let self = this;
 
-    this.lists.shoppingLists = [];
-
     this.service.getAllShoppingLists()
         .subscribe(resp => {
-          Object.keys(resp).forEach(
-            function(key) {
-              let value = resp[key];
-              self.lists.shoppingLists.unshift(new ShoppingList(key, value.name))
-            }
-          )
+          self.lists = ShopliftrMapper.mapGetAllShoppingLists(resp);
+          console.log(self.lists);
         }
       );
   }
@@ -59,19 +47,18 @@ export class ShoppinglistComponent implements OnInit {
         });
   }
 
-  addItem(newItem: string) {
-    if (newItem) {
-      let item = new Item(newItem);
-      this.items.push(item);
-    }
+  addItem(listId: string, itemName: string) {
+    this.service.addItemToShoppingList(listId, itemName)
+        .subscribe(resp => {
+          this.populateAllShoppingLists();
+        });
   }
 
-  switchGroceryList(id: number) {
-    if (id == 1) {
-      this.items = ITEMS;
-    } else if (id == 2) {
-      this.items = ITEMS2;
-    }
+  removeItem(listId: string, itemId: string) {
+    this.service.removeItemFromShoppingList(listId, itemId)
+        .subscribe(resp => {
+          this.populateAllShoppingLists();
+        });
   }
 
   crossOut(name: string) {
@@ -79,8 +66,6 @@ export class ShoppinglistComponent implements OnInit {
     item.check();
   }
 
-  remove(name: string) {
-    this.items = this.items.filter(x => x.name != name);
-  }
+
 
 }

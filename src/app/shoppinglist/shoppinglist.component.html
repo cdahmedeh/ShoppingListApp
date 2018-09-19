@@ -1,26 +1,29 @@
-<h2>Shopping List</h2>
-
-<div *ngFor='let list of lists.shoppingLists'>
-  <button>{{list.id}} {{list.name}}</button>
-  <button (click)=removeShoppingList(list.id)>Remove</button>
-</div>
-
 <input #newList
   (keyup.enter)="addShoppingList(newList.value)"
   (blur)="addShoppingList(newList.value); newList.value='' ">
 
-<button (click)="addShoppingList(newList.value)">Add List</button>
+<button (click)="addShoppingList(newList.value)">Add New Shopping List</button>
 
-<ul>
-  <li *ngFor='let item of items'>
-    <span [class.checked]="item.checked">{{item.name}}</span>
-    <button (click)=crossOut(item.name)>Cross Out</button>
-    <button (click)=remove(item.name)>Remove</button>
-  </li>
-</ul>
+<div *ngFor='let list of lists.shoppingLists'>
+  <button>{{list.id}} {{list.name}}</button>
+  <button (click)=removeShoppingList(list.id)>Remove</button>
 
-<input #newItem
-  (keyup.enter)="addItem(newItem.value)"
-  (blur)="addItem(newItem.value); newItem.value='' ">
+  <div>
+    <ul>
+      <li *ngFor='let item of list.items'>
+        <span [class.checked]="item.checked">{{item.name}}</span>
+        <button (click)="crossOut(item.name)">Cross Out</button>
+        <button (click)="removeItem(list.id, item.name)">Remove</button>
+      </li>
+    </ul>
+    
+    <input #newItem
+      (keyup.enter)="addItem(newItem.value)"
+      (blur)="addItem(newItem.value); newItem.value='' ">
+    
+    <button (click)="addItem(list.id, newItem.value)">Add</button>
+  </div>
+</div>
 
-<button (click)="addItem(newItem.value)">Add</button>
+
+

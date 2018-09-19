@@ -1,28 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { API_URL, API_KEY, USER, DEFAULT_SIZE, DELETE_LIST_ENDPOINT } from './api-consts';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
-import { GET_ALL_LISTS_ENDPOINT, CREATE_LIST_ENDPOINT } from './api-consts';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { API_URL, API_KEY, USER, DEFAULT_SIZE } from './api-consts';
+
+import { GET_ALL_LISTS_ENDPOINT, CREATE_LIST_ENDPOINT, DELETE_LIST_ENDPOINT, GET_SHOPPING_LIST_ENDPONT } from './api-consts';
+import { ADD_ITEM_TO_SHOPPING_LIST_ENDPOINT, REMOVE_ITEM_TO_SHOPPING_LIST_ENDPOINT } from './api-consts';
+
+import { AddItemToShoppingListResponse, CreateShoppingListResponse, GetAllShoppingListsResponse, 
+  GetShoppingListResponse, RemoveItemFromShoppingListResponse } from './shopliftr.dto'
 
 const headers = new HttpHeaders({
   'x-api-key': API_KEY
 })
-
-interface GetAllShoppingListsResponse {
-  ["id: string"] : GetAllShoppingListsResponseValue
-}
-
-interface GetAllShoppingListsResponseValue {
-  "id": string
-  "name": string
-  "description": string
-}
-
-interface CreateShoppingListResponse {
-  listId: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +26,8 @@ export class ShopliftrService {
     let body = {
       "user": USER,
       "from": 0,
-      "to": DEFAULT_SIZE
+      "to": DEFAULT_SIZE,
+      "filter": { "location" : { "zip": "37188" } }
     }
 
     return this.http.post<GetAllShoppingListsResponse>
@@ -61,6 +53,43 @@ export class ShopliftrService {
     let url = API_URL + DELETE_LIST_ENDPOINT.replace('{id}', id);
 
     return this.http.post<CreateShoppingListResponse>
+      (url, body, {headers: headers});
+  }
+
+  getShoppingList(id: string): Observable<GetShoppingListResponse> {
+    let body = {
+      "user": USER,
+      "from": 0,
+      "to": DEFAULT_SIZE
+    }
+
+    let url = API_URL + GET_SHOPPING_LIST_ENDPONT.replace('{id}', id);
+
+    return this.http.post<GetAllShoppingListsResponse>
+      (url, body, {headers: headers});
+  }
+
+  addItemToShoppingList(id: string, item: string): Observable<AddItemToShoppingListResponse> {
+    let body = {
+      "user": USER,
+      "items": [ { "name": item } ]
+    }
+
+    let url = API_URL + ADD_ITEM_TO_SHOPPING_LIST_ENDPOINT.replace('{id}', id);
+
+    return this.http.post<GetAllShoppingListsResponse>
+      (url, body, {headers: headers});
+  }
+
+  removeItemFromShoppingList(id: string, item: string): Observable<RemoveItemFromShoppingListResponse> {
+    let body = {
+      "user": USER,
+      "item": item
+    }
+
+    let url = API_URL + REMOVE_ITEM_TO_SHOPPING_LIST_ENDPOINT.replace('{id}', id);
+
+    return this.http.post<GetAllShoppingListsResponse>
       (url, body, {headers: headers});
   }
 }
