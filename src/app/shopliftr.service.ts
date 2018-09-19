@@ -9,7 +9,7 @@ import { GET_ALL_LISTS_ENDPOINT, CREATE_LIST_ENDPOINT, DELETE_LIST_ENDPOINT, GET
 import { ADD_ITEM_TO_SHOPPING_LIST_ENDPOINT, REMOVE_ITEM_TO_SHOPPING_LIST_ENDPOINT } from './api-consts';
 
 import { AddItemToShoppingListResponse, CreateShoppingListResponse, GetAllShoppingListsResponse, 
-  GetShoppingListResponse, RemoveItemFromShoppingListResponse } from './shopliftr.dto'
+  GetShoppingListResponse, RemoveItemFromShoppingListResponse, RemoveShoppingListResponse } from './shopliftr.dto'
 
 const headers = new HttpHeaders({
   'x-api-key': API_KEY
@@ -45,14 +45,14 @@ export class ShopliftrService {
       (API_URL + CREATE_LIST_ENDPOINT, body, {headers: headers});
   }
 
-  removeShoppingList(id: string): Observable<CreateShoppingListResponse> {
+  removeShoppingList(id: string): Observable<RemoveShoppingListResponse> {
     let body = {
       "user": USER
     }
 
     let url = API_URL + DELETE_LIST_ENDPOINT.replace('{id}', id);
 
-    return this.http.post<CreateShoppingListResponse>
+    return this.http.post<RemoveShoppingListResponse>
       (url, body, {headers: headers});
   }
 
@@ -65,7 +65,7 @@ export class ShopliftrService {
 
     let url = API_URL + GET_SHOPPING_LIST_ENDPONT.replace('{id}', id);
 
-    return this.http.post<GetAllShoppingListsResponse>
+    return this.http.post<GetShoppingListResponse>
       (url, body, {headers: headers});
   }
 
@@ -77,7 +77,7 @@ export class ShopliftrService {
 
     let url = API_URL + ADD_ITEM_TO_SHOPPING_LIST_ENDPOINT.replace('{id}', id);
 
-    return this.http.post<GetAllShoppingListsResponse>
+    return this.http.post<AddItemToShoppingListResponse>
       (url, body, {headers: headers});
   }
 
@@ -89,7 +89,7 @@ export class ShopliftrService {
 
     let url = API_URL + REMOVE_ITEM_TO_SHOPPING_LIST_ENDPOINT.replace('{id}', id);
 
-    return this.http.post<GetAllShoppingListsResponse>
+    return this.http.post<RemoveItemFromShoppingListResponse>
       (url, body, {headers: headers});
   }
 }

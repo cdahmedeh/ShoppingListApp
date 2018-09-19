@@ -1,3 +1,5 @@
+/* This script contains typed forms of the JSON respons from the API */
+
 export interface GetAllShoppingListsResponse {
     ["id: string"] : GetAllShoppingListsResponseValue
 }
@@ -23,6 +25,10 @@ export interface GetAllShoppingListsDeal {
 
 export interface CreateShoppingListResponse {
 "listId": string
+}
+
+export interface RemoveShoppingListResponse {
+
 }
 
 export interface GetShoppingListResponse {
