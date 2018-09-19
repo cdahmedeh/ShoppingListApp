@@ -14,8 +14,6 @@ import { ShoppingLists, ShoppingList, Item } from '../models';
 export class ShoppinglistComponent implements OnInit {
   lists: ShoppingLists = new ShoppingLists();
 
-  items = [];
-
   constructor(public service: ShopliftrService) { }
 
   ngOnInit() {
@@ -61,9 +59,14 @@ export class ShoppinglistComponent implements OnInit {
         });
   }
 
-  crossOut(name: string) {
-    let item = this.items.find(x => x.name == name);
-    item.check();
+  toggleItem(shoppingListId: string, itemId: string) {
+    let shoppingList = this.lists.shoppingLists.find(sl => sl.id == shoppingListId);
+    if (shoppingList) {
+      let item = shoppingList.items.find(i => i.id == itemId)
+      if (item) {
+        item.toggle();
+      }
+    }
   }
 
 

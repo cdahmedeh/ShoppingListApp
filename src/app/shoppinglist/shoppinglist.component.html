@@ -11,8 +11,8 @@
   <div>
     <ul>
       <li *ngFor='let item of list.items'>
-        <span [class.checked]="item.checked">{{item.name}}</span>
-        <button (click)="crossOut(item.name)">Cross Out</button>
+        <span [class.checked]="item.checked">{{item.id}}</span>
+        <button (click)="toggleItem(list.id, item.id)">Cross Out</button>
         <button (click)="removeItem(list.id, item.name)">Remove</button>
       </li>
     </ul>
