@@ -1,3 +1,5 @@
+/* Domain Models */
+
 export class ShoppingLists {
     shoppingLists: ShoppingList[] = [];
 }

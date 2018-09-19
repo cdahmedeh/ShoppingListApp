@@ -1,3 +1,5 @@
+/* This script converts JSON models into Domain models */
+
 import { GetAllShoppingListsResponse } from './shopliftr.dto'
 
 import { ShoppingLists, ShoppingList, Item, Deal } from './models';

@@ -12,6 +12,7 @@ import { ShoppingLists, ShoppingList, Item } from '../models';
 })
 
 export class ShoppinglistComponent implements OnInit {
+  /* Shopping List model */
   lists: ShoppingLists = new ShoppingLists();
 
   constructor(public service: ShopliftrService) { }
@@ -20,6 +21,7 @@ export class ShoppinglistComponent implements OnInit {
     this.populateAllShoppingLists();
   }
 
+  /* Fills the shopping list model based on data from the server */
   populateAllShoppingLists() {
     let self = this;
 
@@ -31,6 +33,7 @@ export class ShoppinglistComponent implements OnInit {
       );
   }
 
+  /* Shopping List Manipulation methods */
   addShoppingList(name: string) {
     this.service.createShoppingList(name)
         .subscribe(resp => {
@@ -45,6 +48,7 @@ export class ShoppinglistComponent implements OnInit {
         });
   }
 
+  /* Shopping List Items Manipulation methods */
   addItem(listId: string, itemName: string) {
     this.service.addItemToShoppingList(listId, itemName)
         .subscribe(resp => {
