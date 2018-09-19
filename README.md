@@ -52,28 +52,15 @@ The hosted version of the app can be found by accessing this url: [http://shoppi
 
 ## Running the Application
 
-### Via Docker
-
-Install docker for your operation system:
-* [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows)
-* [macOS] (https://store.docker.com/editions/community/docker-ce-desktop-mac)
-* For Linux, use the package manager to install docker.
-
-Run the docker image
-    docker run
-
-Access the Angular App with the browser using the following URL
-    http://localhost:8080/
-
 ### Via Angular CLI
 
 Begin by installing node.js and npm on your system via this [website](https://nodejs.org/en/download/) for your operating system. Use the LTS version.
 
 Then using the npm package manager, install the angular CLI
-    npm install -g @angular/cli
+    ```npm install -g @angular/cli```
 
 You can then enter the directory of the project folder. The project can be run with
-    ng serve --open
+    ```ng serve --open```
 
 The browser will be automatically be opened to the Angular App on (http://localhost:4200)[http://localhost:4200]
 
