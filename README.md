@@ -16,6 +16,8 @@ Most of the learning was done through the official Angular documentation which w
 
 There are some software engineering practises that I've ignored due to time limitations such as security, unit testing and validation.
 
+Little attention was paid to UI/UX as this was to demonstrate coding style rather than UI/UX skills.
+
 The application cannot run offline or handle network problems. Some applications like Todoist handle this by using in browser storage.
 
 ### Recommendations for the API
@@ -28,14 +30,11 @@ Finally, in order to do batch shopping list operations, I'd recommend a look int
 
 The error reporting on the API is poor often just returning 400 or 500 series errors. I recommend at least showing the Java Exception that caused the failure.
 
-### Performance optimization
-
-I have done a single performance optimization to improve the responsiveness of the app. The model is updated immedeatly even before the server request is made. This gives the impressions that things are happening locally while in the background network requests are being made to persist the changes.
-
 ### Application Features
 
 * Built with Angular 6
 * User can manually enter ZIP code to identify geographical position
+* If no ZIP code is entered a default one is used.
 
 * Add one item to the grocery list at a time.
 * Items can checked/crossed-out from the list.
@@ -51,11 +50,20 @@ I have done a single performance optimization to improve the responsiveness of t
 
 The hosted version of the app can be found by accessing this url: [http://shopping.cdahmedeh.net](http://shopping.cdahmedeh.net)
 
-It running in a docker container that simply runs the Angular CLI command in Alpine Linux. The docker container is hosted on a DigitalOcean VPS Droplet.
-
 ## Running the Application
 
 ### Via Docker
+
+Install docker for your operation system:
+* [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows)
+* [macOS] (https://store.docker.com/editions/community/docker-ce-desktop-mac)
+* For Linux, use the package manager to install docker.
+
+Run the docker image
+    docker run
+
+Access the Angular App with the browser using the following URL
+    http://localhost:8080/
 
 ### Via Angular CLI
 
@@ -72,9 +80,9 @@ The browser will be automatically be opened to the Angular App on (http://localh
 ## Project Structure
 
 src/app/models.ts => Domain models
-src/app/shopliftr.service.ts => HTTP access to Shoplifr API
-src/app/shopliftr.dto.ts => Models of JSON responses from API
-src/app/mapper.ts => Converts JSON Models into Domain models
+src/app/*.service.ts => HTTP access to Shoplifr API
+src/app/*.dto.ts => Models of JSON responses from API
+src/app/*.mapper.ts => Converts JSON Models into Domain models
 src/app/api-consts.ts => API related constants
 src/app/shoppinglist => Shopping Page Component
 
