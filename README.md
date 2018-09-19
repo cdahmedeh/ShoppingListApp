@@ -59,6 +59,9 @@ Begin by installing node.js and npm on your system via this [website](https://no
 Then using the npm package manager, install the angular CLI
     ```npm install -g @angular/cli```
 
+Install project dependencies
+    ```npm install```
+
 You can then enter the directory of the project folder. The project can be run with
     ```ng serve --open```
 
