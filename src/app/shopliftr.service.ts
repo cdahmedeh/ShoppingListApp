@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
-import { API_URL, API_KEY, USER, DEFAULT_SIZE } from './api-consts';
+import { API_URL, API_KEY, USER, DEFAULT_SIZE, DEFAULT_ZIP_CODE } from './api-consts';
 
 import { GET_ALL_LISTS_ENDPOINT, CREATE_LIST_ENDPOINT, DELETE_LIST_ENDPOINT, GET_SHOPPING_LIST_ENDPONT } from './api-consts';
 import { ADD_ITEM_TO_SHOPPING_LIST_ENDPOINT, REMOVE_ITEM_TO_SHOPPING_LIST_ENDPOINT } from './api-consts';
@@ -22,12 +22,16 @@ export class ShopliftrService {
 
   constructor(private http: HttpClient) { }
 
-  getAllShoppingLists(): Observable<GetAllShoppingListsResponse> {
+  getAllShoppingLists(zipcode: string): Observable<GetAllShoppingListsResponse> {
+    if (zipcode == "") {
+      zipcode = DEFAULT_ZIP_CODE;
+    }
+   
     let body = {
       "user": USER,
       "from": 0,
       "to": DEFAULT_SIZE,
-      "filter": { "location" : { "zip": "37188" } }
+      "filter": { "location" : { "zip": zipcode } }
     }
 
     return this.http.post<GetAllShoppingListsResponse>

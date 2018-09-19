@@ -19,10 +19,12 @@ export class ShopliftrMapper {
                 let item = new Item(p.id, p.name);
                 list.items.unshift(item);
 
-                p.deals.forEach(d => {
-                    let deal = new Deal(d.name, d.brand, d.image_url);
-                    item.deals.unshift(deal);
-                });
+                if (p.deals) {
+                    p.deals.forEach(d => {
+                        let deal = new Deal(d.name, d.brand, d.image_url);
+                        item.deals.unshift(deal);
+                    });
+                }
               });
             }
           )

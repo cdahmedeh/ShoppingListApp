@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ShopliftrService } from '../shopliftr.service';
 import { ShopliftrMapper } from '../shopliftr.mapper';
+import { GeocodeService } from '../geocode.service';
+import { GeocodeMapper } from '../geocode.mapper';
 
-import { ShoppingLists, ShoppingList, Item } from '../models';
+import { ShoppingLists } from '../models';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -12,10 +14,14 @@ import { ShoppingLists, ShoppingList, Item } from '../models';
 })
 
 export class ShoppinglistComponent implements OnInit {
+  /* Zipcode and location information */
+  zipcode = '';
+  location = 'Please enter Zipcode'
+
   /* Shopping List model */
   lists: ShoppingLists = new ShoppingLists();
 
-  constructor(public service: ShopliftrService) { }
+  constructor(public service: ShopliftrService, public geocodeService: GeocodeService) { }
 
   ngOnInit() {
     this.populateAllShoppingLists();
@@ -25,7 +31,7 @@ export class ShoppinglistComponent implements OnInit {
   populateAllShoppingLists() {
     let self = this;
 
-    this.service.getAllShoppingLists()
+    this.service.getAllShoppingLists(self.zipcode)
         .subscribe(resp => {
           self.lists = ShopliftrMapper.mapGetAllShoppingLists(resp);
           console.log(self.lists);
@@ -49,15 +55,15 @@ export class ShoppinglistComponent implements OnInit {
   }
 
   /* Shopping List Items Manipulation methods */
-  addItem(listId: string, itemName: string) {
-    this.service.addItemToShoppingList(listId, itemName)
+  addItem(shoppingListId: string, itemName: string) {
+    this.service.addItemToShoppingList(shoppingListId, itemName)
         .subscribe(resp => {
           this.populateAllShoppingLists();
         });
   }
 
-  removeItem(listId: string, itemId: string) {
-    this.service.removeItemFromShoppingList(listId, itemId)
+  removeItem(shoppingListId: string, itemId: string) {
+    this.service.removeItemFromShoppingList(shoppingListId, itemId)
         .subscribe(resp => {
           this.populateAllShoppingLists();
         });
@@ -73,6 +79,17 @@ export class ShoppinglistComponent implements OnInit {
     }
   }
 
+  getLocationFromZipcode() {
+    let self = this; 
+    this.geocodeService.getLocationFromZipcode(self.zipcode)
+        .subscribe(resp => {
+          self.location = GeocodeMapper.getAddressFromGeocodeResponse(resp);
+          console.log(self.location);
+        });
+  }
 
+  onKey(event: any) {
+    this.zipcode = event.target.value;
+  }
 
 }

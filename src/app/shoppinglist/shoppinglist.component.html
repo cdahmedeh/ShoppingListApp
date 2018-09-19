@@ -1,28 +1,76 @@
-<input #newList
-  (keyup.enter)="addShoppingList(newList.value)"
-  (blur)="addShoppingList(newList.value); newList.value='' ">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Your location: {{location}}</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto navbar-right">
+    </ul>
+  </div>
 
-<button (click)="addShoppingList(newList.value)">Add New Shopping List</button>
+  <div class="form-inline my-2 my-lg-0">
+      <input (keyup)="onKey($event)" class="form-control mr-sm-2" type="search" placeholder="Search Zipcode" aria-label="Search">
+      <button (click)="getLocationFromZipcode()" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </div>
+</nav>
+
+<hr class="my-4">
+
+<div class="btn-toolbar mb-3" role="toolbar">
+  <div class="btn-group mr-2" role="group">
+    <button (click)="addShoppingList(newList.value)" type="button" class="btn btn-primary">Add New Shopping List</button>
+  </div>
+
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text" id="btnGroupAddon">+</div>
+    </div>
+    <input #newList (keyup.enter)="addShoppingList(newList.value)" type="text" class="form-control" placeholder="Shopping List Name">
+  </div>
+</div>
+<hr class="my-4">
 
 <div *ngFor='let list of lists.shoppingLists'>
-  <button>{{list.id}} {{list.name}}</button>
-  <button (click)=removeShoppingList(list.id)>Remove</button>
+  <div>
+    <span class="shopping-list-name align-middle">{{list.name}}</span>
+    <button (click)=removeShoppingList(list.id) class="btn btn-secondary">Delete Shopping List</button>
+  </div>
 
   <div>
     <ul>
       <li *ngFor='let item of list.items'>
-        <span [class.checked]="item.checked">{{item.id}}</span>
-        <button (click)="toggleItem(list.id, item.id)">Cross Out</button>
-        <button (click)="removeItem(list.id, item.name)">Remove</button>
+        <span [class.checked]="item.checked" class="shopping-list-item  align-middle">{{item.name}}</span>
+        <button (click)="toggleItem(list.id, item.id)" class="btn btn-primary" tabindex="-1" role="button">Cross Out</button>
+        <button (click)="removeItem(list.id, item.id)" class="btn btn-primary" tabindex="-1" role="button">Remove</button>
+
+        <table>
+          <tr>
+            <td *ngFor='let deal of item.deals' class="container">
+              <div class="card">
+                <img class="card-img-top" src="{{deal.imageUrl}}" height="100" width="60">
+                <div class="card-body">
+                  <h5 class="card-title">{{deal.name}}</h5>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
       </li>
-    </ul>
-    
-    <input #newItem
-      (keyup.enter)="addItem(newItem.value)"
-      (blur)="addItem(newItem.value); newItem.value='' ">
-    
-    <button (click)="addItem(list.id, newItem.value)">Add</button>
+    </ul>    
   </div>
+
+  <div class="btn-toolbar mb-3" role="toolbar">
+      <div class="btn-group mr-2" role="group">
+        <button (click)="addItem(list.id, newItem.value)" type="button" class="btn btn-primary">Add New Item</button>
+      </div>
+    
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text" id="btnGroupAddon">+</div>
+        </div>
+        <input #newItem (keyup.enter)="addItem(list.id, newItem.value)" type="text" class="form-control" placeholder="Shopping List Item">
+      </div>
+    </div>
+    <hr class="my-4">
+
+  <hr class="my-4">
 </div>
 
 

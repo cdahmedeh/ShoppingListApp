@@ -1,3 +1,28 @@
 .checked {
     text-decoration: line-through;
 }
+
+.shopping-list-name {
+    font-size: 18pt;
+    font-style: bold;
+    margin: 10px;
+}
+
+.shopping-list-item {
+    font-size: 14pt;
+    font-style: bold;
+    margin: 10px;
+}
+
+.container{
+    background-color:#2E4272;
+    display:flex;
+}
+.fixed{
+    background-color:#4F628E;
+    width: 200px;
+}
+.flex-item{
+    background-color:#7887AB;
+    flex-grow: 1;
+}
