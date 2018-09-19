@@ -1,7 +1,15 @@
 <h2>Shopping List</h2>
 
-<button (click)="switchGroceryList(1)">Grocery List 1</button>
-<button (click)="switchGroceryList(2)">Grocery List 2</button>
+<div *ngFor='let list of lists.shoppingLists'>
+  <button>{{list.id}} {{list.name}}</button>
+  <button (click)=removeShoppingList(list.id)>Remove</button>
+</div>
+
+<input #newList
+  (keyup.enter)="addShoppingList(newList.value)"
+  (blur)="addShoppingList(newList.value); newList.value='' ">
+
+<button (click)="addShoppingList(newList.value)">Add List</button>
 
 <ul>
   <li *ngFor='let item of items'>
@@ -13,6 +21,6 @@
 
 <input #newItem
   (keyup.enter)="addItem(newItem.value)"
-  (blur)="addItem(newItem.value); newItem.value='test' ">
+  (blur)="addItem(newItem.value); newItem.value='' ">
 
 <button (click)="addItem(newItem.value)">Add</button>
